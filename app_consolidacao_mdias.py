@@ -22,120 +22,179 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+/* ===== BASE ===== */
 .stApp {
-    background: linear-gradient(135deg, #050816, #0b1020, #111827);
-    color: white;
+    background: #f6f8fb;
+    color: #111827;
 }
 
 .block-container {
+    max-width: 1180px;
     padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
+/* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {
-    background: #050816;
-    border-right: 1px solid rgba(255,255,255,0.10);
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
 }
 
 section[data-testid="stSidebar"] * {
-    color: #e5e7eb !important;
+    color: #111827 !important;
 }
 
+/* ===== HERO ===== */
 .hero {
-    padding: 38px;
-    border-radius: 24px;
-    background:
-        radial-gradient(circle at right, rgba(124,58,237,.28), transparent 35%),
-        linear-gradient(135deg, rgba(15,23,42,.96), rgba(30,41,59,.66));
-    border: 1px solid rgba(255,255,255,.10);
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px 32px;
     margin-bottom: 28px;
-    box-shadow: 0 22px 60px rgba(0,0,0,.30);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
 .hero h1 {
-    font-size: 42px;
+    font-size: 30px;
+    line-height: 1.2;
     font-weight: 800;
-    color: white;
-    margin-bottom: 10px;
+    color: #111827;
+    margin: 0 0 8px 0;
 }
 
 .hero span {
-    color: #a78bfa;
+    color: #2563eb;
 }
 
 .hero p {
-    color: #cbd5e1;
-    font-size: 16px;
+    color: #6b7280;
+    font-size: 15px;
     margin: 0;
 }
 
+/* ===== TÍTULOS ===== */
+h2, h3 {
+    color: #111827 !important;
+}
+
+h2 {
+    font-size: 26px !important;
+    margin-bottom: 18px !important;
+}
+
+/* ===== CARDS ===== */
 .upload-card,
 .action-card {
-    padding: 24px;
-    border-radius: 20px;
-    background: rgba(15,23,42,.72);
-    border: 1px solid rgba(255,255,255,.10);
-    margin-bottom: 18px;
-    min-height: 170px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    height: 170px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
 }
 
 .upload-card h3,
 .action-card h2 {
-    color: white;
-    margin-top: 10px;
-    margin-bottom: 8px;
+    color: #111827;
+    font-size: 19px;
+    line-height: 1.25;
+    margin: 14px 0 8px 0;
 }
 
 .upload-card p,
 .action-card p {
-    color: #94a3b8;
-    margin-bottom: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
 }
 
 .badge {
-    background: rgba(124,58,237,.20);
-    color: #c4b5fd;
-    padding: 6px 12px;
+    display: inline-block;
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 5px 10px;
     border-radius: 999px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
 }
 
+/* ===== UPLOADERS ===== */
+[data-testid="stFileUploader"] {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    padding: 10px 12px;
+    min-height: 110px;
+}
+
+[data-testid="stFileUploader"] section {
+    padding: 8px !important;
+}
+
+[data-testid="stFileUploader"] button {
+    border-radius: 10px;
+    height: 38px;
+    font-size: 14px;
+}
+
+/* ===== BOTÕES ===== */
 .stButton > button {
-    height: 58px;
+    height: 48px;
     width: 100%;
-    border-radius: 16px;
-    border: 0;
-    background: linear-gradient(135deg, #7c3aed, #a78bfa);
-    color: white;
-    font-size: 17px;
-    font-weight: 800;
+    border-radius: 12px;
+    border: none;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.stButton > button:hover {
+    background: #1d4ed8;
 }
 
 .stDownloadButton > button {
-    height: 54px;
+    height: 46px;
     width: 100%;
-    border-radius: 16px;
-    border: 1px solid rgba(34,197,94,.35);
-    background: rgba(34,197,94,.14);
-    color: #bbf7d0;
-    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 15px;
     font-weight: 700;
 }
 
-[data-testid="stFileUploader"] {
-    border: 1px dashed rgba(167,139,250,.45);
-    border-radius: 16px;
-    padding: 10px;
-    background: rgba(2,6,23,.32);
+/* ===== ALERTAS / STATUS ===== */
+div[data-testid="stAlert"] {
+    border-radius: 12px;
+    padding: 12px 14px;
 }
 
+/* ===== MÉTRICAS ===== */
 div[data-testid="stMetric"] {
-    background: rgba(15,23,42,.72);
-    border: 1px solid rgba(255,255,255,.10);
-    padding: 18px;
-    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
 }
+
+/* ===== TABELA ===== */
+[data-testid="stDataFrame"] {
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+/* ===== LIMPEZA STREAMLIT ===== */
+#MainMenu,
+footer,
+header {
+    visibility: hidden;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
