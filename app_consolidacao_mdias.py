@@ -383,6 +383,16 @@ div[data-testid="stMetric"] label {
     color: var(--muted) !important;
 }
 
+div[data-testid="stMetricValue"],
+div[data-testid="stMetricValue"] > div {
+    color: var(--text) !important;
+    font-weight: 760 !important;
+}
+
+div[data-testid="stMetricDelta"] {
+    color: var(--muted) !important;
+}
+
 [data-testid="stDataFrame"] {
     border: 1px solid var(--line);
     border-radius: 10px;
@@ -513,6 +523,48 @@ def converter_numero(valor):
     valor = valor.replace(",", ".")
 
     return pd.to_numeric(valor, errors="coerce")
+
+
+COLUNAS_DATA = [
+    "Dt de emissão",
+    "Inicio Rota",
+    "Fim Rota",
+    "Data Oferta",
+    "Data Liberação",
+    "Data OTM",
+]
+
+
+def formatar_data(valor):
+    if pd.isna(valor):
+        return ""
+
+    texto = str(valor).strip()
+
+    if texto == "":
+        return ""
+
+    numero = pd.to_numeric(texto.replace(",", "."), errors="coerce")
+
+    if pd.notna(numero) and 20000 <= numero <= 80000:
+        data = pd.to_datetime(numero, unit="D", origin="1899-12-30", errors="coerce")
+    else:
+        data = pd.to_datetime(texto, dayfirst=True, errors="coerce")
+
+    if pd.isna(data):
+        return texto
+
+    return data.strftime("%d/%m/%Y")
+
+
+def formatar_colunas_data(df):
+    df_formatado = df.copy()
+
+    for coluna in COLUNAS_DATA:
+        if coluna in df_formatado.columns:
+            df_formatado[coluna] = df_formatado[coluna].apply(formatar_data)
+
+    return df_formatado
 
 
 def status_badge(carregado):
@@ -967,6 +1019,7 @@ with st.container(border=True):
                         relatorio_gm,
                         relatorio_gw,
                     )
+                    df_consolidado = formatar_colunas_data(df_consolidado)
 
                     arquivo_excel = gerar_excel_download(df_consolidado)
 
