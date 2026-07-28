@@ -129,11 +129,19 @@ h2 {
     min-height: 110px;
 }
 
+[data-testid="stFileUploader"] * {
+    color: #111827 !important;
+}
+
 [data-testid="stFileUploader"] section {
+    background: #ffffff !important;
+    border-color: #cbd5e1 !important;
     padding: 8px !important;
 }
 
 [data-testid="stFileUploader"] button {
+    background: #2563eb !important;
+    color: #ffffff !important;
     border-radius: 10px;
     height: 38px;
     font-size: 14px;
@@ -172,6 +180,10 @@ div[data-testid="stAlert"] {
     padding: 12px 14px;
 }
 
+div[data-testid="stAlert"] * {
+    color: #111827 !important;
+}
+
 /* ===== MÉTRICAS ===== */
 div[data-testid="stMetric"] {
     background: #ffffff;
@@ -179,6 +191,10 @@ div[data-testid="stMetric"] {
     padding: 16px;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+div[data-testid="stMetric"] * {
+    color: #111827 !important;
 }
 
 /* ===== TABELA ===== */
