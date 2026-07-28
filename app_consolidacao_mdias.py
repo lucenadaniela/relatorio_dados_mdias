@@ -12,7 +12,7 @@ st.set_page_config(
     page_title="Consolidação M. Dias",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="expanded"
 )
 
 
@@ -20,423 +20,183 @@ st.set_page_config(
 # CSS
 # ============================================================
 
-st.markdown(
-    """
+st.markdown("""
 <style>
-:root {
-    --bg: #f5f7fa;
-    --surface: #ffffff;
-    --surface-soft: #f8fafc;
-    --text: #111827;
-    --muted: #64748b;
-    --line: #e2e8f0;
-    --line-strong: #cbd5e1;
-    --primary: #1f5eff;
-    --primary-dark: #1747c8;
-    --success: #15803d;
-    --warning: #b45309;
-    --danger: #b91c1c;
-    --radius: 12px;
-}
-
-html, body, [class*="css"] {
-    font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
+/* ===== BASE ===== */
 .stApp {
-    background:
-        linear-gradient(180deg, #f8fafc 0%, #f5f7fa 32%, #f5f7fa 100%);
-    color: var(--text);
+    background: #f6f8fb;
+    color: #111827;
 }
 
 .block-container {
-    max-width: 1240px;
-    padding: 32px 40px 28px;
+    max-width: 1180px;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
-h1, h2, h3, p {
-    letter-spacing: 0;
-}
-
-h2 {
-    color: var(--text) !important;
-    font-size: 21px !important;
-    line-height: 1.25 !important;
-    font-weight: 750 !important;
-    margin: 0 0 16px !important;
-}
-
-h3 {
-    color: var(--text) !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-}
-
-/* Sidebar */
+/* ===== SIDEBAR ===== */
 section[data-testid="stSidebar"] {
     background: #ffffff;
-    border-right: 1px solid var(--line);
-}
-
-section[data-testid="stSidebar"] > div {
-    padding: 28px 20px;
+    border-right: 1px solid #e5e7eb;
 }
 
 section[data-testid="stSidebar"] * {
-    color: var(--text) !important;
+    color: #111827 !important;
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 26px;
-}
-
-.brand-mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 12px;
-    background: linear-gradient(135deg, #1646d8, #22a06b);
-}
-
-.brand-title {
-    font-size: 17px;
-    font-weight: 780;
-    line-height: 1.1;
-}
-
-.brand-subtitle {
-    color: var(--muted) !important;
-    font-size: 12px;
-    margin-top: 3px;
-}
-
-.side-nav {
-    display: grid;
-    gap: 6px;
-    margin: 18px 0 28px;
-}
-
-.side-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    height: 40px;
-    padding: 0 12px;
-    border-radius: 10px;
-    color: #334155 !important;
-    font-size: 14px;
-    font-weight: 650;
-}
-
-.side-item.active {
-    background: #eef4ff;
-    color: #1747c8 !important;
-}
-
-.side-note {
-    border: 1px solid var(--line);
-    background: var(--surface-soft);
-    border-radius: var(--radius);
-    padding: 14px;
-    color: var(--muted) !important;
-    font-size: 13px;
-    line-height: 1.45;
-}
-
-/* Header */
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 26px;
-}
-
-.eyebrow {
-    color: var(--primary);
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    margin-bottom: 9px;
-}
-
-.page-title {
-    color: var(--text);
-    font-size: 34px;
-    line-height: 1.08;
-    font-weight: 820;
-    margin: 0;
-}
-
-.page-copy {
-    color: var(--muted);
-    max-width: 680px;
-    font-size: 15px;
-    line-height: 1.55;
-    margin: 12px 0 0;
-}
-
-.run-date {
-    min-width: 154px;
-    text-align: right;
-    color: var(--muted);
-    font-size: 13px;
-    padding-top: 4px;
-}
-
-/* Panels */
-.panel {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 20px;
-}
-
-.panel + .panel {
-    margin-top: 18px;
-}
-
-.section-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    align-items: flex-end;
-    margin-bottom: 14px;
-}
-
-.section-kicker {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: -8px;
-}
-
-.upload-intro {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px;
-    min-height: 132px;
+/* ===== HERO ===== */
+.hero {
     background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
-.file-step {
-    display: inline-flex;
-    align-items: center;
-    height: 26px;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: #eef4ff;
-    color: #1747c8;
-    font-size: 12px;
-    font-weight: 750;
-    margin-bottom: 14px;
+.hero h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 8px 0;
 }
 
-.upload-intro h3 {
-    margin: 0 0 8px;
+.hero span {
+    color: #2563eb;
 }
 
-.upload-intro p {
+.hero p {
+    color: #6b7280;
+    font-size: 15px;
     margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.48;
 }
 
-/* File uploader */
+/* ===== TÍTULOS ===== */
+h2, h3 {
+    color: #111827 !important;
+}
+
+h2 {
+    font-size: 26px !important;
+    margin-bottom: 18px !important;
+}
+
+/* ===== CARDS ===== */
+.upload-card,
+.action-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    height: 170px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.upload-card h3,
+.action-card h2 {
+    color: #111827;
+    font-size: 19px;
+    line-height: 1.25;
+    margin: 14px 0 8px 0;
+}
+
+.upload-card p,
+.action-card p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.badge {
+    display: inline-block;
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ===== UPLOADERS ===== */
 [data-testid="stFileUploader"] {
-    background: #ffffff !important;
-    border: 1px dashed var(--line-strong) !important;
-    border-radius: var(--radius) !important;
-    padding: 12px !important;
-    margin-top: 10px;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    padding: 10px 12px;
+    min-height: 110px;
 }
 
 [data-testid="stFileUploader"] section {
-    background: #ffffff !important;
-    border: 0 !important;
-    padding: 0 !important;
-}
-
-[data-testid="stFileUploader"] section > div {
-    color: var(--muted) !important;
-}
-
-[data-testid="stFileUploader"] label {
-    color: #334155 !important;
-    font-size: 13px !important;
-    font-weight: 650 !important;
-}
-
-[data-testid="stFileUploader"] small {
-    color: var(--muted) !important;
+    padding: 8px !important;
 }
 
 [data-testid="stFileUploader"] button {
-    background: #f8fafc !important;
-    color: var(--text) !important;
-    border: 1px solid var(--line-strong) !important;
-    border-radius: 9px !important;
-    font-weight: 700 !important;
-    min-height: 36px !important;
-}
-
-[data-testid="stFileUploader"] button:hover {
-    border-color: #94a3b8 !important;
-    background: #f1f5f9 !important;
-}
-
-/* Status */
-.status-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-}
-
-.status-chip {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 12px 14px;
-    background: var(--surface-soft);
-}
-
-.status-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #334155;
-}
-
-.status-pill {
-    border-radius: 999px;
-    padding: 5px 9px;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.status-ok {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.status-wait {
-    background: #fff7ed;
-    color: #9a3412;
-}
-
-/* Buttons */
-.stButton > button,
-.stDownloadButton > button {
-    width: 100%;
-    min-height: 46px;
-    border-radius: 10px;
-    border: 1px solid transparent;
+    height: 38px;
     font-size: 14px;
-    font-weight: 760;
-    box-shadow: none;
 }
 
+/* ===== BOTÕES ===== */
 .stButton > button {
-    background: var(--primary);
+    height: 48px;
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    background: #2563eb;
     color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .stButton > button:hover {
-    background: var(--primary-dark);
-    color: #ffffff;
-    border-color: var(--primary-dark);
+    background: #1d4ed8;
 }
 
 .stDownloadButton > button {
-    background: var(--success);
+    height: 46px;
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    background: #16a34a;
     color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
 }
 
-.stDownloadButton > button:hover {
-    background: #166534;
-    color: #ffffff;
-}
-
+/* ===== ALERTAS / STATUS ===== */
 div[data-testid="stAlert"] {
-    border-radius: 10px;
-    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
 }
 
+/* ===== MÉTRICAS ===== */
 div[data-testid="stMetric"] {
     background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
 }
 
-div[data-testid="stMetric"] label {
-    color: var(--muted) !important;
-}
-
-div[data-testid="stMetricValue"],
-div[data-testid="stMetricValue"] > div {
-    color: var(--text) !important;
-    font-weight: 760 !important;
-}
-
-div[data-testid="stMetricDelta"] {
-    color: var(--muted) !important;
-}
-
+/* ===== TABELA ===== */
 [data-testid="stDataFrame"] {
-    border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
     overflow: hidden;
 }
 
-.footer {
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid var(--line);
-}
-
-#MainMenu, footer, header {
+/* ===== LIMPEZA STREAMLIT ===== */
+#MainMenu,
+footer,
+header {
     visibility: hidden;
 }
 
-@media (max-width: 900px) {
-    .block-container {
-        padding: 22px 18px;
-    }
-
-    .topbar {
-        display: block;
-    }
-
-    .run-date {
-        text-align: left;
-        margin-top: 14px;
-    }
-
-    .page-title {
-        font-size: 28px;
-    }
-
-    .status-grid {
-        grid-template-columns: 1fr;
-    }
-}
 </style>
-""",
-    unsafe_allow_html=True,
-)
+""", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -525,52 +285,48 @@ def converter_numero(valor):
     return pd.to_numeric(valor, errors="coerce")
 
 
-COLUNAS_DATA = [
-    "Dt de emissão",
-    "Inicio Rota",
-    "Fim Rota",
-    "Data Oferta",
-    "Data Liberação",
-    "Data OTM",
-]
-
-
 def formatar_data(valor):
     if pd.isna(valor):
         return ""
 
-    texto = str(valor).strip()
+    valor_texto = str(valor).strip()
 
-    if texto == "":
+    if valor_texto == "":
         return ""
 
-    numero = pd.to_numeric(texto.replace(",", "."), errors="coerce")
+    numero_excel = pd.to_numeric(valor_texto.replace(",", "."), errors="coerce")
 
-    if pd.notna(numero) and 20000 <= numero <= 80000:
-        data = pd.to_datetime(numero, unit="D", origin="1899-12-30", errors="coerce")
+    if pd.notna(numero_excel) and 20000 <= numero_excel <= 80000:
+        data = pd.to_datetime(
+            numero_excel,
+            unit="D",
+            origin="1899-12-30",
+            errors="coerce"
+        )
     else:
-        data = pd.to_datetime(texto, dayfirst=True, errors="coerce")
+        data = pd.NaT
+
+        for formato in [
+            "%d/%m/%Y",
+            "%d/%m/%y",
+            "%d/%m/%Y %H:%M:%S",
+            "%Y-%m-%d",
+            "%Y-%m-%d %H:%M:%S",
+            "%d-%m-%Y",
+            "%d.%m.%Y",
+        ]:
+            data = pd.to_datetime(valor_texto, format=formato, errors="coerce")
+
+            if pd.notna(data):
+                break
+
+        if pd.isna(data):
+            data = pd.to_datetime(valor_texto, errors="coerce", dayfirst=True)
 
     if pd.isna(data):
-        return texto
+        return valor_texto
 
     return data.strftime("%d/%m/%Y")
-
-
-def formatar_colunas_data(df):
-    df_formatado = df.copy()
-
-    for coluna in COLUNAS_DATA:
-        if coluna in df_formatado.columns:
-            df_formatado[coluna] = df_formatado[coluna].apply(formatar_data)
-
-    return df_formatado
-
-
-def status_badge(carregado):
-    classe = "status-ok" if carregado else "status-wait"
-    texto = "Carregado" if carregado else "Pendente"
-    return f'<span class="status-pill {classe}">{texto}</span>'
 
 
 # ============================================================
@@ -594,7 +350,7 @@ def ler_base_principal(arquivo):
         if encontrar_coluna(df, ["Remessa", "Remessas", "ID Remessa"]):
             return df
 
-    raise ValueError("Não encontrei nenhuma aba com coluna de remessa na base principal.")
+    raise ValueError("não encontrei nenhuma aba com coluna de remessa na base principal.")
 
 
 def ler_relatorio_gm(arquivo):
@@ -603,7 +359,7 @@ def ler_relatorio_gm(arquivo):
             arquivo,
             sheet_name=0,
             header=header,
-            dtype=str,
+            dtype=str
         )
 
         df = normalizar_colunas(df)
@@ -612,7 +368,7 @@ def ler_relatorio_gm(arquivo):
         if encontrar_coluna(df, ["Remessa", "Remessas", "ID Remessa"]):
             return df
 
-    raise ValueError("Não encontrei a coluna de remessa no relatório GM Ana.")
+    raise ValueError("não encontrei a coluna de remessa no relatório GM Ana.")
 
 
 def ler_relatorio_gw(arquivo):
@@ -621,7 +377,7 @@ def ler_relatorio_gw(arquivo):
             arquivo,
             sheet_name=0,
             header=header,
-            dtype=str,
+            dtype=str
         )
 
         df = normalizar_colunas(df)
@@ -635,12 +391,12 @@ def ler_relatorio_gw(arquivo):
                 "ID Remessa",
                 "Numero Carga",
                 "Número Carga",
-                "Carga",
-            ],
+                "Carga"
+            ]
         ):
             return df
 
-    raise ValueError("Não encontrei a coluna de remessa no relatório GW.")
+    raise ValueError("não encontrei a coluna de remessa no relatório GW.")
 
 
 # ============================================================
@@ -652,8 +408,16 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
     gm = ler_relatorio_gm(relatorio_gm)
     gw = ler_relatorio_gw(relatorio_gw)
 
-    col_base = encontrar_coluna(base, ["Remessa", "Remessas", "ID Remessa"])
-    col_gm = encontrar_coluna(gm, ["Remessa", "Remessas", "ID Remessa"])
+    col_base = encontrar_coluna(
+        base,
+        ["Remessa", "Remessas", "ID Remessa"]
+    )
+
+    col_gm = encontrar_coluna(
+        gm,
+        ["Remessa", "Remessas", "ID Remessa"]
+    )
+
     col_gw = encontrar_coluna(
         gw,
         [
@@ -662,18 +426,18 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
             "ID Remessa",
             "Numero Carga",
             "Número Carga",
-            "Carga",
-        ],
+            "Carga"
+        ]
     )
 
     if not col_base:
-        raise ValueError("Não encontrei a coluna de remessa na base principal.")
+        raise ValueError("não encontrei a coluna de remessa na base principal.")
 
     if not col_gm:
-        raise ValueError("Não encontrei a coluna de remessa no relatório GM Ana.")
+        raise ValueError("não encontrei a coluna de remessa no relatório GM Ana.")
 
     if not col_gw:
-        raise ValueError("Não encontrei a coluna de remessa no relatório GW.")
+        raise ValueError("não encontrei a coluna de remessa no relatório GW.")
 
     base["Remessa_Chave"] = base[col_base].apply(limpar_remessa)
     gm["Remessa_Chave"] = gm[col_gm].apply(limpar_remessa)
@@ -682,6 +446,11 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
     base = base[base["Remessa_Chave"] != ""]
     gm = gm[gm["Remessa_Chave"] != ""]
     gw = gw[gw["Remessa_Chave"] != ""]
+
+    # ========================================================
+    # RELATÓRIO ANA
+    # mantém todas as linhas, porque cada linha é uma entrega
+    # ========================================================
 
     colunas_gm = [
         "Remessa_Chave",
@@ -701,13 +470,12 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
     ]
 
     colunas_gm = [coluna for coluna in colunas_gm if coluna is not None]
+
     gm_final = gm[colunas_gm].copy()
 
+    # renomeia placa e motorista do GM para evitar conflito com base/GW
     col_placa_gm = encontrar_coluna(gm_final, ["Placa", "PLACA"])
-    col_motorista_gm = encontrar_coluna(
-        gm_final,
-        ["Motorista", "Condutor", "Nome Motorista", "Nome Condutor"],
-    )
+    col_motorista_gm = encontrar_coluna(gm_final, ["Motorista", "Condutor", "Nome Motorista", "Nome Condutor"])
 
     renomear_gm = {}
 
@@ -719,6 +487,12 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
 
     gm_final = gm_final.rename(columns=renomear_gm)
 
+    # ========================================================
+    # RELATÓRIO GW
+    # mantém uma linha por carga/remessa
+    # usado principalmente para emissão
+    # ========================================================
+
     colunas_gw = [
         "Remessa_Chave",
         encontrar_coluna(gw, ["Emissão CT-e", "Emissao CT-e", "Dt emissão CTE", "Data emissão CTE"]),
@@ -727,46 +501,150 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
     ]
 
     colunas_gw = [coluna for coluna in colunas_gw if coluna is not None]
+
     gw_final = gw[colunas_gw].drop_duplicates(subset=["Remessa_Chave"])
+
+    # ========================================================
+    # MERGES
+    # base + ana: pode multiplicar linhas para trazer entregas
+    # gw: complementa por remessa/carga
+    # ========================================================
 
     consolidado = base.merge(
         gm_final,
         on="Remessa_Chave",
         how="inner",
-        suffixes=("", "_Base"),
-    )
+        suffixes=("", "_Base")
+    )   
 
     consolidado = consolidado.merge(
         gw_final,
         on="Remessa_Chave",
         how="left",
-        suffixes=("", "_GW"),
+        suffixes=("", "_GW")
     )
 
+    # ========================================================
+    # MAPA FINAL
+    # ========================================================
+
     mapa_final = {
-        "Remessas": encontrar_coluna(consolidado, ["Remessa", "Remessas", "ID Remessa"]),
-        "Cidade Remetente": encontrar_coluna(consolidado, ["Cidade Origem", "Cidade Remetente"]),
-        "Nome Cliente": encontrar_coluna(consolidado, ["Cliente", "Nome Cliente"]),
-        "Cidade Destino": encontrar_coluna(consolidado, ["Cidade Destino"]),
-        "Número de Cidades": encontrar_coluna(consolidado, ["Número de cidades", "Numero de cidades"]),
-        "Número de Paradas": encontrar_coluna(consolidado, ["Número de Paradas", "Numero de Paradas"]),
-        "Estado Destino": encontrar_coluna(consolidado, ["Estado Destino", "Estado Destinatario", "Estado Destinatário"]),
-        "Volumes": encontrar_coluna(consolidado, ["Volumes", "Volume"]),
-        "Peso Bruto": encontrar_coluna(consolidado, ["Peso Bruto"]),
-        "Dt de emissão": encontrar_coluna(consolidado, ["Dt emissão CTE", "Data emissão CTE", "Emissão CT-e", "Emissao CT-e"]),
-        "Inicio Rota": encontrar_coluna(consolidado, ["Dt Inicio Rota", "Data Inicio Rota", "Inicio Rota", "Início Rota"]),
-        "Fim Rota": encontrar_coluna(consolidado, ["Dt Fim Rota", "Data Fim Rota", "Fim Rota"]),
-        "Região": encontrar_coluna(consolidado, ["Região", "Regiao"]),
-        "Cidades": encontrar_coluna(consolidado, ["Cidades"]),
-        "KM Original": encontrar_coluna(consolidado, ["KM Original"]),
-        "Complementar": encontrar_coluna(consolidado, ["KM Complementar", "Complementar"]),
-        "Custo Total": encontrar_coluna(consolidado, ["Custo Total"]),
-        "Tipo Veículo": encontrar_coluna(consolidado, ["Tipo Veículo", "Tipo Veiculo"]),
-        "Data Oferta": encontrar_coluna(consolidado, ["Dt Oferta", "Data Oferta", "Data Ofertada"]),
-        "Data Liberação": encontrar_coluna(consolidado, ["Data Liberação", "Data Liberacao"]),
-        "Data OTM": encontrar_coluna(consolidado, ["Data OTM"]),
-        "Motorista": encontrar_coluna(consolidado, ["Motorista_Ana", "Motorista", "Condutor", "Nome Motorista", "Nome Condutor"]),
-        "Placa": encontrar_coluna(consolidado, ["Placa_Ana", "Placa", "PLACA"]),
+        "Remessas": encontrar_coluna(
+            consolidado,
+            ["Remessa", "Remessas", "ID Remessa"]
+        ),
+
+        "Cidade Remetente": encontrar_coluna(
+            consolidado,
+            ["Cidade Origem", "Cidade Remetente"]
+        ),
+
+        "Nome Cliente": encontrar_coluna(
+            consolidado,
+            ["Cliente", "Nome Cliente"]
+        ),
+
+        "Cidade Destino": encontrar_coluna(
+            consolidado,
+            ["Cidade Destino"]
+        ),
+
+        "Número de Cidades": encontrar_coluna(
+            consolidado,
+            ["Número de cidades", "Numero de cidades"]
+        ),
+
+        "Número de Paradas": encontrar_coluna(
+            consolidado,
+            ["Número de Paradas", "Numero de Paradas"]
+        ),
+
+        "Estado Destino": encontrar_coluna(
+            consolidado,
+            ["Estado Destino", "Estado Destinatario", "Estado Destinatário"]
+        ),
+
+        "Volumes": encontrar_coluna(
+            consolidado,
+            ["Volumes", "Volume"]
+        ),
+
+        "Peso Bruto": encontrar_coluna(
+            consolidado,
+            ["Peso Bruto"]
+        ),
+
+        "Dt de emissão": encontrar_coluna(
+            consolidado,
+            ["Dt emissão CTE", "Data emissão CTE", "Emissão CT-e", "Emissao CT-e"]
+        ),
+
+        "Inicio Rota": encontrar_coluna(
+            consolidado,
+            ["Dt Inicio Rota", "Data Inicio Rota", "Inicio Rota", "Início Rota"]
+        ),
+
+        "Fim Rota": encontrar_coluna(
+            consolidado,
+            ["Dt Fim Rota", "Data Fim Rota", "Fim Rota"]
+        ),
+
+        "Região": encontrar_coluna(
+            consolidado,
+            ["Região", "Regiao"]
+        ),
+
+        "Cidades": encontrar_coluna(
+            consolidado,
+            ["Cidades"]
+        ),
+
+        "KM Original": encontrar_coluna(
+            consolidado,
+            ["KM Original"]
+        ),
+
+        "Complementar": encontrar_coluna(
+            consolidado,
+            ["KM Complementar", "Complementar"]
+        ),
+
+        "Custo Total": encontrar_coluna(
+            consolidado,
+            ["Custo Total"]
+        ),
+
+        "Tipo Veículo": encontrar_coluna(
+            consolidado,
+            ["Tipo Veículo", "Tipo Veiculo"]
+        ),
+
+        "Data Oferta": encontrar_coluna(
+            consolidado,
+            ["Dt Oferta", "Data Oferta", "Data Ofertada"]
+        ),
+
+        "Data Liberação": encontrar_coluna(
+            consolidado,
+            ["Data Liberação", "Data Liberacao"]
+        ),
+
+        "Data OTM": encontrar_coluna(
+            consolidado,
+            ["Data OTM"]
+        ),
+
+        # prioridade total para o relatório Ana
+        "Motorista": encontrar_coluna(
+            consolidado,
+            ["Motorista_Ana", "Motorista", "Condutor", "Nome Motorista", "Nome Condutor"]
+        ),
+
+        # prioridade total para o relatório Ana
+        "Placa": encontrar_coluna(
+            consolidado,
+            ["Placa_Ana", "Placa", "PLACA"]
+        ),
     }
 
     base_final = pd.DataFrame()
@@ -777,12 +655,30 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         else:
             base_final[nome_final] = ""
 
+    colunas_data = [
+        "Dt de emissÃ£o",
+        "Inicio Rota",
+        "Fim Rota",
+        "Data Oferta",
+        "Data LiberaÃ§Ã£o",
+        "Data OTM",
+    ]
+
+    for coluna_data in colunas_data:
+        if coluna_data in base_final.columns:
+            base_final[coluna_data] = base_final[coluna_data].apply(formatar_data)
+
+    # ========================================================
+    # KM TOTAL
+    # ========================================================
+
     base_final["KM Original"] = base_final["KM Original"].apply(converter_numero)
     base_final["Complementar"] = base_final["Complementar"].apply(converter_numero)
 
     base_final["KM Total"] = (
         base_final["KM Original"].fillna(0)
-        + base_final["Complementar"].fillna(0)
+        +
+        base_final["Complementar"].fillna(0)
     )
 
     ordem_final = [
@@ -847,213 +743,178 @@ def gerar_excel_download(df):
 # ============================================================
 
 with st.sidebar:
-    st.markdown(
-        """
-        <div class="brand">
-            <div class="brand-mark">MD</div>
-            <div>
-                <div class="brand-title">M. Dias</div>
-                <div class="brand-subtitle">Consolidação operacional</div>
-            </div>
-        </div>
-        <div class="side-nav">
-            <div class="side-item active">Inicio</div>
-            <div class="side-item">Importar relatórios</div>
-            <div class="side-item">Consolidar base</div>
-        </div>
-        <div class="side-note">
-            Ferramenta interna para cruzar remessas, entregas, cargas e dados de emissão em uma base final.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown("## 📊 M. Dias")
+    st.markdown("### Consolidação")
+    st.markdown("---")
+    st.markdown("🏠 **Início**")
+    st.markdown("📁 **Importar relatórios**")
+    st.markdown("🧩 **Consolidar base**")
+    st.markdown("---")
+    st.info("Ferramenta interna para consolidar relatórios operacionais.")
 
 
 # ============================================================
 # INTERFACE
 # ============================================================
 
-st.markdown(
-    f"""
-    <div class="topbar">
-        <div>
-            <div class="eyebrow">Base consolidada</div>
-            <h1 class="page-title">Consolidação de relatórios M. Dias</h1>
-            <p class="page-copy">
-                Importe os três relatórios operacionais, valide o status dos arquivos
-                e gere uma planilha final pronta para análise.
-            </p>
-        </div>
-        <div class="run-date">
-            Atualizado em<br><strong>{datetime.now().strftime("%d/%m/%Y")}</strong>
-        </div>
+st.markdown("""
+<div class="hero">
+    <h1>Consolidação de Relatórios <span>M. Dias</span></h1>
+    <p>Importe os relatórios operacionais e gere uma base final consolidada para análise.</p>
+</div>
+""", unsafe_allow_html=True)
+
+
+st.markdown("## 1. Importar relatórios")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+    <div class="upload-card">
+        <span class="badge">Arquivo 01</span>
+        <h3>Base principal / Remessas</h3>
+        <p>Base com as remessas que serão enriquecidas.</p>
     </div>
-    """,
-    unsafe_allow_html=True,
-)
+    """, unsafe_allow_html=True)
 
-with st.container(border=True):
-    st.markdown(
-        """
-        <div class="section-head">
-            <div>
-                <h2>Importar relatórios</h2>
-                <div class="section-kicker">Envie os arquivos em Excel para iniciar a consolidação.</div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    base_principal = st.file_uploader(
+        "Selecionar base principal",
+        type=["xlsx", "xls"],
+        key="base_principal"
     )
 
-    col1, col2, col3 = st.columns(3, gap="large")
+with col2:
+    st.markdown("""
+    <div class="upload-card">
+        <span class="badge">Arquivo 02</span>
+        <h3>Relatório GM Ana</h3>
+        <p>Relatório com entregas, cidade destino, placa e motorista.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    with col1:
-        st.markdown(
-            """
-            <div class="upload-intro">
-                <span class="file-step">Arquivo 01</span>
-                <h3>Base principal / Remessas</h3>
-                <p>Base com as remessas que serão enriquecidas pelos demais relatórios.</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        base_principal = st.file_uploader(
-            "Selecionar base principal",
-            type=["xlsx", "xls"],
-            key="base_principal",
-        )
-
-    with col2:
-        st.markdown(
-            """
-            <div class="upload-intro">
-                <span class="file-step">Arquivo 02</span>
-                <h3>Relatório GM Ana</h3>
-                <p>Relatório com entregas, cidade destino, placa, motorista e rota.</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        relatorio_gm = st.file_uploader(
-            "Selecionar relatório GM Ana",
-            type=["xlsx", "xls"],
-            key="relatorio_gm",
-        )
-
-    with col3:
-        st.markdown(
-            """
-            <div class="upload-intro">
-                <span class="file-step">Arquivo 03</span>
-                <h3>Relatório GW</h3>
-                <p>Relatório com carga, emissão de CT-e e datas complementares.</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        relatorio_gw = st.file_uploader(
-            "Selecionar relatório GW",
-            type=["xlsx", "xls"],
-            key="relatorio_gw",
-        )
-
-arquivos_enviados = sum(
-    [
-        base_principal is not None,
-        relatorio_gm is not None,
-        relatorio_gw is not None,
-    ]
-)
-
-with st.container(border=True):
-    st.markdown(
-        f"""
-        <div class="section-head">
-            <div>
-                <h2>Status dos arquivos</h2>
-                <div class="section-kicker">{arquivos_enviados} de 3 arquivos enviados.</div>
-            </div>
-        </div>
-        <div class="status-grid">
-            <div class="status-chip">
-                <span class="status-label">Base principal</span>
-                {status_badge(base_principal is not None)}
-            </div>
-            <div class="status-chip">
-                <span class="status-label">Relatório GM Ana</span>
-                {status_badge(relatorio_gm is not None)}
-            </div>
-            <div class="status-chip">
-                <span class="status-label">Relatório GW</span>
-                {status_badge(relatorio_gw is not None)}
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    relatorio_gm = st.file_uploader(
+        "Selecionar relatório GM Ana",
+        type=["xlsx", "xls"],
+        key="relatorio_gm"
     )
 
-with st.container(border=True):
-    st.markdown(
-        """
-        <div class="section-head">
-            <div>
-                <h2>Consolidar base</h2>
-                <div class="section-kicker">Cruze os relatórios e gere o Excel final.</div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+with col3:
+    st.markdown("""
+    <div class="upload-card">
+        <span class="badge">Arquivo 03</span>
+        <h3>Relatório GW</h3>
+        <p>Relatório com carga e emissão do CT-e.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    relatorio_gw = st.file_uploader(
+        "Selecionar relatório GW",
+        type=["xlsx", "xls"],
+        key="relatorio_gw"
     )
 
-    botao = st.button("Consolidar relatórios", type="primary")
 
-    if botao:
-        if not base_principal or not relatorio_gm or not relatorio_gw:
-            st.error("Envie os três arquivos antes de consolidar.")
-        else:
-            try:
-                with st.spinner("Consolidando relatórios..."):
-                    df_consolidado = consolidar_bases(
-                        base_principal,
-                        relatorio_gm,
-                        relatorio_gw,
-                    )
-                    df_consolidado = formatar_colunas_data(df_consolidado)
+st.markdown("## Status dos arquivos")
 
-                    arquivo_excel = gerar_excel_download(df_consolidado)
+s1, s2, s3 = st.columns(3)
 
-                st.success("Base consolidada com sucesso.")
+with s1:
+    if base_principal:
+        st.success("Base principal carregada")
+    else:
+        st.warning("Base principal pendente")
 
-                k1, k2, k3 = st.columns(3)
+with s2:
+    if relatorio_gm:
+        st.success("Relatório GM Ana carregado")
+    else:
+        st.warning("Relatório GM Ana pendente")
 
-                with k1:
-                    st.metric("Linhas geradas", len(df_consolidado))
+with s3:
+    if relatorio_gw:
+        st.success("Relatório GW carregado")
+    else:
+        st.warning("Relatório GW pendente")
 
-                with k2:
-                    st.metric("Colunas finais", len(df_consolidado.columns))
 
-                with k3:
-                    st.metric("Status", "Concluído")
+st.markdown("""
+<div class="action-card">
+    <h2>2. Consolidar base</h2>
+    <p>Clique no botão abaixo para cruzar os relatórios e gerar o arquivo final.</p>
+</div>
+""", unsafe_allow_html=True)
 
-                st.markdown("### Prévia da base consolidada")
-                st.dataframe(df_consolidado.head(50), use_container_width=True)
 
-                st.download_button(
-                    label="Baixar BASE_CONSOLIDADA_MDIAS.xlsx",
-                    data=arquivo_excel,
-                    file_name="BASE_CONSOLIDADA_MDIAS.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+botao = st.button("🚀 Consolidar relatórios")
+
+if botao:
+    if not base_principal or not relatorio_gm or not relatorio_gw:
+        st.error("Envie os três arquivos antes de consolidar.")
+    else:
+        try:
+            with st.spinner("Consolidando relatórios..."):
+                df_consolidado = consolidar_bases(
+                    base_principal,
+                    relatorio_gm,
+                    relatorio_gw
                 )
 
-            except Exception as erro:
-                st.error(f"Erro ao consolidar: {erro}")
+                arquivo_excel = gerar_excel_download(df_consolidado)
 
-st.markdown(
-    f"""
-    <div class="footer">
-        Sistema interno | Consolidação operacional M. Dias | Versão 1.0 | {datetime.now().strftime("%d/%m/%Y")}
-    </div>
-    """,
-    unsafe_allow_html=True,
+            st.success("Base consolidada com sucesso.")
+
+            k1, k2, k3 = st.columns(3)
+
+            with k1:
+                st.metric("Linhas geradas", len(df_consolidado))
+
+            with k2:
+                st.metric("Colunas finais", len(df_consolidado.columns))
+
+            with k3:
+                st.metric("Status", "Concluído")
+
+            st.markdown("### Prévia da base consolidada")
+            st.dataframe(df_consolidado.head(50), use_container_width=True)
+
+            st.download_button(
+                label="⬇️ Baixar BASE_CONSOLIDADA_MDIAS.xlsx",
+                data=arquivo_excel,
+                file_name="BASE_CONSOLIDADA_MDIAS.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+
+        except Exception as erro:
+            st.error(f"Erro ao consolidar: {erro}")
+
+
+# ============================================================
+# RODAPÉ
+# ============================================================
+
+st.markdown("---")
+
+arquivos_enviados = sum([
+    base_principal is not None,
+    relatorio_gm is not None,
+    relatorio_gw is not None
+])
+
+r1, r2, r3 = st.columns(3)
+
+with r1:
+    st.metric("Arquivos enviados", f"{arquivos_enviados}/3")
+
+with r2:
+    st.metric(
+        "Status",
+        "Pronto" if arquivos_enviados == 3 else "Aguardando"
+    )
+
+with r3:
+    st.metric("Versão", "1.0")
+
+st.caption(
+    f"Sistema interno • Consolidação operacional M. Dias • {datetime.now().strftime('%d/%m/%Y')}"
 )
