@@ -303,12 +303,12 @@ def converter_numero(valor):
 
 def formatar_data(valor):
     if pd.isna(valor):
-        return ""
+        return None
 
     valor_texto = str(valor).strip()
 
     if valor_texto == "":
-        return ""
+        return None
 
     numero_excel = pd.to_numeric(valor_texto.replace(",", "."), errors="coerce")
 
@@ -320,12 +320,29 @@ def formatar_data(valor):
             errors="coerce"
         )
     else:
-        data = pd.to_datetime(valor_texto, errors="coerce", dayfirst=True)
+        data = pd.NaT
+
+        for formato in [
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%d",
+            "%d/%m/%Y",
+            "%d/%m/%y",
+            "%d/%m/%Y %H:%M:%S",
+            "%d-%m-%Y",
+            "%d.%m.%Y",
+        ]:
+            data = pd.to_datetime(valor_texto, format=formato, errors="coerce")
+
+            if pd.notna(data):
+                break
+
+        if pd.isna(data):
+            data = pd.to_datetime(valor_texto, errors="coerce", dayfirst=True)
 
     if pd.isna(data):
-        return valor_texto
+        return None
 
-    return data.strftime("%d/%m/%Y")
+    return data.to_pydatetime().date()
 
 
 # ============================================================
@@ -655,10 +672,12 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
             base_final[nome_final] = ""
 
     colunas_data = [
+        "Dt de emissão",
         "Dt de emissÃ£o",
         "Inicio Rota",
         "Fim Rota",
         "Data Oferta",
+        "Data Liberação",
         "Data LiberaÃ§Ã£o",
         "Data OTM",
     ]
@@ -723,6 +742,29 @@ def gerar_excel_download(df):
         ws = writer.sheets["Base Consolidada"]
         ws.freeze_panes = "A2"
         ws.auto_filter.ref = ws.dimensions
+
+        colunas_data = {
+            "Dt de emissão",
+            "Dt de emissÃ£o",
+            "Inicio Rota",
+            "Fim Rota",
+            "Data Oferta",
+            "Data Liberação",
+            "Data LiberaÃ§Ã£o",
+            "Data OTM",
+        }
+
+        for celula_cabecalho in ws[1]:
+            if celula_cabecalho.value in colunas_data:
+                for celula in ws.iter_cols(
+                    min_col=celula_cabecalho.column,
+                    max_col=celula_cabecalho.column,
+                    min_row=2,
+                    max_row=ws.max_row
+                ):
+                    for item in celula:
+                        if item.value:
+                            item.number_format = "DD/MM/YYYY"
 
         for coluna in ws.columns:
             maior = 0
