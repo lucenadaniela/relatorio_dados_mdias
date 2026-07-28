@@ -304,24 +304,7 @@ def formatar_data(valor):
             errors="coerce"
         )
     else:
-        data = pd.NaT
-
-        for formato in [
-            "%d/%m/%Y",
-            "%d/%m/%y",
-            "%d/%m/%Y %H:%M:%S",
-            "%Y-%m-%d",
-            "%Y-%m-%d %H:%M:%S",
-            "%d-%m-%Y",
-            "%d.%m.%Y",
-        ]:
-            data = pd.to_datetime(valor_texto, format=formato, errors="coerce")
-
-            if pd.notna(data):
-                break
-
-        if pd.isna(data):
-            data = pd.to_datetime(valor_texto, errors="coerce", dayfirst=True)
+        data = pd.to_datetime(valor_texto, errors="coerce", dayfirst=True)
 
     if pd.isna(data):
         return valor_texto
