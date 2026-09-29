@@ -489,6 +489,12 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
 
     gm_final = gm[colunas_gm].copy()
 
+    # Preserva o volume de cada entrega antes do merge com a base principal.
+    col_volume_gm = encontrar_coluna(gm_final, ["Volume", "Volumes"])
+    if not col_volume_gm:
+        raise ValueError("não encontrei a coluna de volume no relatório GM Ana.")
+    gm_final = gm_final.rename(columns={col_volume_gm: "Volume_Entrega_Ana"})
+
     # renomeia placa e motorista do GM para evitar conflito com base/GW
     col_placa_gm = encontrar_coluna(gm_final, ["Placa", "PLACA"])
     col_motorista_gm = encontrar_coluna(gm_final, ["Motorista", "Condutor", "Nome Motorista", "Nome Condutor"])
@@ -580,10 +586,7 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
             ["Estado Destino", "Estado Destinatario", "Estado Destinatário"]
         ),
 
-        "Volumes": encontrar_coluna(
-            consolidado,
-            ["Volumes", "Volume"]
-        ),
+        "Volumes": "Volume_Entrega_Ana",
 
         "Peso Bruto": encontrar_coluna(
             consolidado,
