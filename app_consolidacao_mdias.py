@@ -485,9 +485,21 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         encontrar_coluna(gm, ["Dt Fim Rota", "Data Fim Rota", "Fim Rota"]),
     ]
 
+    extras_gm = ['Hora Oferta', 'Data chegada motorista cd', 'Hora chegada motorista cd', 'Data inicio carregamento', 'Hora inicio carregamento', 'Hora Liberacao']
+    mapa_extras_gm = {
+        nome: next((c for c in gm.columns if normalizar_texto(c) == normalizar_texto(nome)), None)
+        for nome in extras_gm
+    }
+    colunas_gm.extend(c for c in mapa_extras_gm.values() if c is not None)
     colunas_gm = [coluna for coluna in colunas_gm if coluna is not None]
+    colunas_gm = list(dict.fromkeys(colunas_gm))
 
     gm_final = gm[colunas_gm].copy()
+    gm_final = gm_final.rename(columns={
+        coluna: f"__extra_gm_{i}"
+        for i, (nome, coluna) in enumerate(mapa_extras_gm.items())
+        if coluna is not None
+    })
 
     # Preserva o volume de cada entrega antes do merge com a base principal.
     col_volume_gm = encontrar_coluna(gm_final, ["Volume", "Volumes"])
@@ -522,9 +534,21 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         encontrar_coluna(gw, ["Data Entrega"]),
     ]
 
+    extras_gw = ['Hora Chegada', 'Hora Entrega', 'Hora Emissão CT-e']
+    mapa_extras_gw = {
+        nome: next((c for c in gw.columns if normalizar_texto(c) == normalizar_texto(nome)), None)
+        for nome in extras_gw
+    }
+    colunas_gw.extend(c for c in mapa_extras_gw.values() if c is not None)
     colunas_gw = [coluna for coluna in colunas_gw if coluna is not None]
+    colunas_gw = list(dict.fromkeys(colunas_gw))
 
     gw_final = gw[colunas_gw].drop_duplicates(subset=["Remessa_Chave"])
+    gw_final = gw_final.rename(columns={
+        coluna: f"__extra_gw_{i}"
+        for i, (nome, coluna) in enumerate(mapa_extras_gw.items())
+        if coluna is not None
+    })
 
     # ========================================================
     # MERGES
@@ -666,6 +690,10 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         ),
     }
 
+    # Novos campos aparecem depois das 24 colunas originais.
+    mapa_final.update({nome: f"__extra_gm_{i}" for i, nome in enumerate(extras_gm)})
+    mapa_final.update({nome: f"__extra_gw_{i}" for i, nome in enumerate(extras_gw)})
+
     base_final = pd.DataFrame()
 
     for nome_final, coluna_origem in mapa_final.items():
@@ -682,6 +710,8 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         "Data Oferta",
         "Data Liberação",
         "Data LiberaÃ§Ã£o",
+        "Data chegada motorista cd",
+        "Data inicio carregamento",
         "Data OTM",
     ]
 
@@ -729,7 +759,7 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         "Placa",
     ]
 
-    return base_final[ordem_final]
+    return base_final[ordem_final + extras_gw + extras_gm]
 
 
 # ============================================================
@@ -754,7 +784,9 @@ def gerar_excel_download(df):
             "Data Oferta",
             "Data Liberação",
             "Data LiberaÃ§Ã£o",
-            "Data OTM",
+            "Data chegada motorista cd",
+            "Data inicio carregamento",
+                    "Data OTM",
         }
 
         for celula_cabecalho in ws[1]:
