@@ -543,7 +543,16 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
     colunas_gw = [coluna for coluna in colunas_gw if coluna is not None]
     colunas_gw = list(dict.fromkeys(colunas_gw))
 
-    gw_final = gw[colunas_gw].drop_duplicates(subset=["Remessa_Chave"])
+    # Uma remessa pode aparecer em vários CT-es. A primeira linha pode
+    # estar sem horários, mesmo quando outra linha da mesma remessa os possui.
+    # Preserva o primeiro valor preenchido de cada campo, na ordem da extração.
+    # Não multiplica as entregas do Ana e mantém a emissão já utilizada.
+    gw_final = gw[colunas_gw].copy()
+    gw_final = gw_final.replace(r"^\s*$", pd.NA, regex=True)
+    gw_final = (
+        gw_final.groupby("Remessa_Chave", sort=False, as_index=False)
+        .first()
+    )
     gw_final = gw_final.rename(columns={
         coluna: f"__extra_gw_{i}"
         for i, (nome, coluna) in enumerate(mapa_extras_gw.items())
