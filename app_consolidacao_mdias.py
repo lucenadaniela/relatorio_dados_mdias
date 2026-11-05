@@ -773,7 +773,12 @@ def consolidar_bases(base_principal, relatorio_gm, relatorio_gw):
         "Placa",
     ]
 
-    return base_final[ordem_final + extras_gw + extras_gm]
+    # Os cabeçalhos da extração GW continuam sendo usados na leitura.
+    # Renomeia somente a tabela final exibida e exportada pelo sistema.
+    return base_final[ordem_final + extras_gw + extras_gm].rename(columns={
+        "Hora Chegada": "Hora inicio rota",
+        "Hora Entrega": "Hora fim rota",
+    })
 
 
 # ============================================================
