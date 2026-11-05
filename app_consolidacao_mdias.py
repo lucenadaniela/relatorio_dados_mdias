@@ -290,15 +290,20 @@ def converter_numero(valor):
     if pd.isna(valor):
         return 0
 
-    valor = str(valor).strip()
+    # Números do Excel já usam ponto decimal: não remover esse ponto.
+    if isinstance(valor, (int, float)):
+        return valor
 
-    if valor == "":
+    texto = str(valor).strip().replace("\u00a0", "").replace(" ", "")
+    if texto == "":
         return 0
 
-    valor = valor.replace(".", "")
-    valor = valor.replace(",", ".")
+    # Texto brasileiro, por exemplo 1.152,2, usa vírgula decimal.
+    # Sem vírgula, mantém o ponto decimal vindo da leitura do Excel.
+    if "," in texto:
+        texto = texto.replace(".", "").replace(",", ".")
 
-    return pd.to_numeric(valor, errors="coerce")
+    return pd.to_numeric(texto, errors="coerce")
 
 
 def formatar_data(valor):
